@@ -1,0 +1,31 @@
+import numpy as np
+import pandas as pd
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+import matplotlib.pyplot as plt
+
+# Load the dataset
+data = pd.read_csv("/content/train.csv")
+data_test = pd.read_csv("/content/test.csv")
+
+# Select features (square footage, bedrooms, bathrooms) and target variable (sale price)
+x = data[['LotArea']]
+y = data['Salesprice']
+# Split the data into training and testing sets
+X_train, X_test, y_train, y_test = train_test_split(features, target, test_size=0.2, random_state=42)
+
+# Create and train the linear regression model
+model = LinearRegression()
+model.fit(x_train, y_train)
+
+# Make predictions on the test set
+y_pred = model.predict(x_test)
+
+# Visualize the predictions
+plt.scatter(x_test, y_test, color='black', label='Actual Prices')
+plt.scatter(x_test, y_pred, color='blue', label='Predicted Prices')
+plt.xlabel("LotArea")
+plt.ylabel('SalePrice')
+plt.title("Actual Prices vs Predicted Prices")
+plt.legend()
+plt.show()
